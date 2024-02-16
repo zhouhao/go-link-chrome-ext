@@ -1,14 +1,13 @@
 {
-  "name": "webRequest.onAuthRequired Demo",
+  "name": "Url Redirect ",
   "version": "1.0",
   "manifest_version": 3,
-  "description": "Demonstrates the webRequest.onAuthRequired listener to detect an authentication request and log the user into the designated site.",
+  "description": "Demonstrates for url redirect",
   "background": {
     "service_worker": "service-worker.js"
   },
   "permissions": [
-    "webRequest",
-    "declarativeNetRequestWithHostAccess"
+    "activeTab"
   ],
   "host_permissions": [
     "*://go/*"
