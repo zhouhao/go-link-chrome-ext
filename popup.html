@@ -3,10 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <title>Tiny Go Link</title>
+    <link rel="stylesheet" href="pure-min.css"/>
+    <style>
+        body {
+            width: 485px;
+            margin: 10px;
+        }
+
+        ul {
+            padding-inline-start: 10px;
+        }
+
+        form {
+            display: none;
+        }
+
+        .button-secondary {
+            background: rgb(66, 184, 221);
+            color: white;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+        }
+    </style>
 </head>
 <body>
+<form class="pure-form pure-form-aligned no-login">
+    <fieldset>
+        <legend>Please Login</legend>
+        <div class="pure-control-group">
+            <label for="aligned-email">Email Address</label>
+            <input type="email" id="aligned-email" placeholder="Email Address"/>
+            <span class="pure-form-message-inline"><button type="button" class="pure-button button-secondary">Send Verification Code</button></span>
+        </div>
+        <div class="pure-control-group">
+            <label for="aligned-foo">Verification Code</label>
+            <input type="text" id="aligned-foo" placeholder="Check Email for Code"/>
+        </div>
+        <div class="pure-controls">
+            <button type="submit" class="pure-button pure-button-primary">Submit</button>
+        </div>
+    </fieldset>
+</form>
+
+<form class="pure-form need-login">
+    <fieldset>
+        <legend>Create You Own Go Link</legend>
+        <input type="text" class="pure-input-2-3" placeholder="You custom go link key(only 0-9a-zA-Z-_)"/>
+        <button type="submit" class="pure-button pure-button-primary" id="create-new-link">Create</button>
+    </fieldset>
+</form>
+<form class="pure-form need-login">
+    <fieldset>
+        <legend>Existing Go Links</legend>
+        <ul>
+            <li>
+                <a href="/layouts/side-menu/">Responsive Vertical Menu</a>
+            </li>
+        </ul>
+    </fieldset>
+</form>
 <div id="root"></div>
-<script src="lemonade.min.js"></script>
+<script src="cash.min.js"></script>
 <script src="popup.js"></script>
 </body>
 </html>
