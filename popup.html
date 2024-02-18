@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Tiny Go Link</title>
-    <link rel="stylesheet" href="pure-min.css"/>
-    <link rel="stylesheet" href="popup.css"/>
+    <link rel="stylesheet" href="css/pure-min.css"/>
+    <link rel="stylesheet" href="css/popup.css"/>
 </head>
 <body>
 
@@ -42,7 +42,7 @@
 <form class="pure-form need-login">
     <fieldset>
         <legend>Create You Own Go Link</legend>
-        <input type="text" class="pure-input-2-3" placeholder="You custom go link key(only 0-9a-zA-Z-_)"/>
+        <input type="text" class="pure-input-2-3" id="url-key" placeholder="You custom go link key(only 0-9a-zA-Z-_)"/>
         <button type="submit" class="pure-button pure-button-primary" id="create-new-link">Create</button>
     </fieldset>
 </form>
@@ -57,7 +57,8 @@
     </fieldset>
 </form>
 <div id="root"></div>
-<script src="cash.min.js"></script>
-<script src="popup.js"></script>
+<script src="js/jquery-3.7.1.min.js"></script>
+<script src="js/notify.min.js"></script>
+<script src="js/popup.js"></script>
 </body>
 </html>

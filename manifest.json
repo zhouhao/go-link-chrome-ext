@@ -4,17 +4,17 @@
   "manifest_version": 3,
   "description": "A simple extension to create a tiny go link for the current page.",
   "icons": {
-    "16": "icon.png",
-    "32": "icon.png",
-    "48": "icon.png",
-    "128": "icon.png"
+    "16": "images/icon.png",
+    "32": "images/icon.png",
+    "48": "images/icon.png",
+    "128": "images/icon.png"
   },
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "icon.png"
+    "default_icon": "images/icon.png"
   },
   "background": {
-    "service_worker": "service-worker.js"
+    "service_worker": "js/service-worker.js"
   },
   "permissions": [
     "activeTab",
