@@ -44,6 +44,7 @@ const storeToken = (token, callback) => {
 
 const getToken = (callback) => {
     chrome.storage.local.get(['token'], function (result) {
+        // todo: cleanup
         console.log('Value currently is ' + JSON.stringify(result.token))
         if (callback) callback(result.token)
     });
