@@ -8,21 +8,33 @@
 </head>
 <body>
 
-<div class="lds-roller" id="spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+<div class="lds-roller" id="spinner">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+</div>
 <form class="pure-form pure-form-aligned no-login">
     <fieldset>
         <legend>Please Login</legend>
         <div class="pure-control-group">
-            <label for="aligned-email">Email Address</label>
-            <input type="email" id="aligned-email" placeholder="Email Address"/>
-            <span class="pure-form-message-inline"><button type="button" class="pure-button button-secondary">Send Verification Code</button></span>
+            <label for="user-email">Email Address</label>
+            <input type="email" id="user-email" placeholder="Email Address"/>
+            <span class="pure-form-message-inline">
+                <button type="button" class="pure-button button-secondary"
+                        id="send-email-code">Send Verification Code</button>
+            </span>
         </div>
         <div class="pure-control-group">
-            <label for="aligned-foo">Verification Code</label>
-            <input type="text" id="aligned-foo" placeholder="Check Email for Code"/>
+            <label for="email-code">Verification Code</label>
+            <input type="text" id="email-code" placeholder="Check Email for Code"/>
         </div>
         <div class="pure-controls">
-            <button type="submit" class="pure-button pure-button-primary">Submit</button>
+            <button type="button" class="pure-button pure-button-primary" id="login">SignIn</button>
         </div>
     </fieldset>
 </form>
