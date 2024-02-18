@@ -123,3 +123,8 @@ form {
         transform: rotate(360deg);
     }
 }
+
+
+#go-links li {
+    padding-bottom: 8px;
+}

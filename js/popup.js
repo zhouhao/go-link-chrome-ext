@@ -99,6 +99,36 @@ const refreshToken = (token) => {
     })
 }
 
+const renderGoLinks = (goLinks) => {
+    const list = $("#go-links")
+    list.empty()
+    if(goLinks.length === 0) {
+        list.append("<li>No go links found</li>")
+        return
+    }
+    for (let i = 0; i < goLinks.length; i++) {
+        let link = goLinks[i]
+        list.append("<li><a href='" + link.link + "' target='_blank'> go/" + link.key + "</a></li>")
+    }
+}
+const fetchGoLinks = (url) => {
+    getToken((token) => {
+        post(baseUrl + '/go_links', {link: url}, token.access_token).then(response => {
+            return response.json()
+        }).then(data => {
+            renderGoLinks(data)
+        })
+    })
+}
+
+const getCurrentUrl = (callback) => {
+    chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+        let url = tabs[0].url
+        callback(url)
+    });
+
+}
+
 const showAfterLogin = () => {
     $('#spinner').hide()
     $(".no-login").hide()
@@ -135,10 +165,8 @@ $("#login").on("click", function () {
 });
 
 $("#create-new-link").on("click", function () {
-    chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
-        let url = tabs[0].url
+    getCurrentUrl((url) => {
         let urlKey = $("input#url-key").val().trim();
-
         if (urlKey.length === 0) {
             alert("Please enter a valid go link key")
             return
@@ -170,3 +198,6 @@ getToken((token) => {
     showBeforeLogin()
 })
 
+getCurrentUrl((url) => {
+    fetchGoLinks(url)
+})
