@@ -1,17 +1,3 @@
-$("#create-new-link").on("click", function () {
-    chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
-        let url = tabs[0].url
-        // use `url` here inside the callback because it's asynchronous!
-        alert(url)
-    });
-});
-
-$(".no-login").show()
-
-$(".need-login").show()
-
-//----------------- Utils function -----------------
-
 const post = (url, data) => {
     return fetch(url, {
         method: 'POST',
@@ -59,4 +45,30 @@ const isTokenExpired = (token) => {
     const jwt = parseJwt(token)
     return jwt.exp < Date.now() / 1000
 }
+
+//---------------------------------
+
+$("#create-new-link").on("click", function () {
+    chrome.tabs.query({active: true, lastFocusedWindow: true}, tabs => {
+        let url = tabs[0].url
+        // use `url` here inside the callback because it's asynchronous!
+        alert(url)
+    });
+});
+
+getToken((token) => {
+    $('#spinner').hide()
+    if (token) {
+        if (isTokenExpired(token)) {
+            $(".no-login").show()
+            $(".need-login").hide()
+        } else {
+            $(".no-login").hide()
+            $(".need-login").show()
+        }
+    } else {
+        $(".no-login").show()
+        $(".need-login").hide()
+    }
+})
 
