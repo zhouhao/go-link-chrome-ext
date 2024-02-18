@@ -17,3 +17,4 @@ const parseKey = (url) => {
     const pathname = new URL(url).pathname
     return pathname.split('/').pop()
 }
+
