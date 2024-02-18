@@ -27,9 +27,9 @@ const getToken = (callback) => {
     });
 }
 const post = (url, data, accessToken = '') => {
-    alert("url = " + url + " data = " + JSON.stringify(data) + " accessToken = " + accessToken)
     return fetch(url, {
         method: 'POST',
+        referrerPolicy: 'no-referrer',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': accessToken
@@ -41,6 +41,7 @@ const post = (url, data, accessToken = '') => {
 const get = (url, accessToken = '') => {
     return fetch(url, {
         method: 'GET',
+        referrerPolicy: 'no-referrer',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': accessToken
@@ -149,7 +150,8 @@ $("#create-new-link").on("click", function () {
                 alert("data = " + JSON.stringify(data))
                 success("Go link created successfully")
             }).catch(e => {
-                alert('Error:'+ e.message);
+                // it can be error, but no block for server side processing, not sure why
+                console.error('Error:' + e.message);
             })
         })
     });
