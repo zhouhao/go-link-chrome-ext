@@ -26,21 +26,24 @@ const getToken = (callback) => {
         if (callback) callback(result.token)
     });
 }
-const post = (url, data) => {
+const post = (url, data, accessToken = '') => {
+    alert("url = " + url + " data = " + JSON.stringify(data) + " accessToken = " + accessToken)
     return fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': accessToken
         },
         body: JSON.stringify(data),
     })
 }
 
-const get = (url) => {
+const get = (url, accessToken = '') => {
     return fetch(url, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': accessToken
         },
     })
 }
@@ -96,17 +99,19 @@ const refreshToken = (token) => {
 }
 
 const showAfterLogin = () => {
+    $('#spinner').hide()
     $(".no-login").hide()
     $(".need-login").show()
 }
 
 const showBeforeLogin = () => {
+    $('#spinner').hide()
     $(".no-login").show()
     $(".need-login").hide()
 }
 
 //---------------------------------
-
+$('#spinner').show()
 $("#send-email-code").on("click", function () {
     let email = $("input#user-email").val().trim();
     if (!isValidEmail(email)) {
@@ -137,12 +142,20 @@ $("#create-new-link").on("click", function () {
             alert("Please enter a valid go link key")
             return
         }
-        alert(url)
+        getToken((token) => {
+            post(baseUrl + '/go_link', {link: url, key: urlKey}, token.access_token).then(response => {
+                return response.json()
+            }).then(data => {
+                alert("data = " + JSON.stringify(data))
+                success("Go link created successfully")
+            }).catch(e => {
+                alert('Error:'+ e.message);
+            })
+        })
     });
 });
 
 getToken((token) => {
-    $('#spinner').hide()
     // alert("token = " + JSON.stringify(token))
     if (token) {
         let isAccessExpired = isTokenExpired(token.access_token)
