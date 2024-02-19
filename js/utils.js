@@ -13,17 +13,26 @@ const info = (message) => {
     $.notify(message, "info")
 }
 const storeToken = (token, callback) => {
+    if (!token || !token.access_token || !token.refresh_token) {
+        error("Invalid token received, please login again")
+        return
+    }
     chrome.storage.local.set({token: token}, function () {
-        console.log('Value is set');
-        if (callback) callback()
+        if (callback) callback(token)
     });
 }
 
 const getToken = (callback) => {
     chrome.storage.local.get(['token'], function (result) {
-        // todo: cleanup
-        console.log('Value currently is ' + JSON.stringify(result.token))
-        if (callback) callback(result.token)
+        const tokenPair = result.token
+        let isAccessExpired = isTokenExpired(tokenPair.access_token)
+        if (!isAccessExpired || (isAccessExpired && !isTokenExpired(tokenPair.refresh_token))) {
+            refreshToken(tokenPair, (data) => {
+                if (callback) callback(data)
+            })
+        } else {
+            if (callback) callback(tokenPair)
+        }
     });
 }
 const post = (url, data, accessToken = '') => {
@@ -71,7 +80,7 @@ const login = (email, code) => {
 const parseJwt = (token) => {
     let base64Url = token.split('.')[1];
     let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    let jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+    let jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
 
@@ -91,18 +100,19 @@ const isValidEmail = (email) => {
         );
 };
 
-const refreshToken = (token) => {
+const refreshToken = (token, callback) => {
     post(baseUrl + '/refresh_token', token).then(response => {
         return response.json()
     }).then(data => {
         storeToken(data)
+        if (callback) callback(data)
     })
 }
 
 const renderGoLinks = (goLinks) => {
     const list = $("#go-links")
     list.empty()
-    if(goLinks.length === 0) {
+    if (goLinks.length === 0) {
         list.append("<li>No go links found</li>")
         return
     }
