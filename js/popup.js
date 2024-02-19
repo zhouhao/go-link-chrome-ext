@@ -108,7 +108,7 @@ const renderGoLinks = (goLinks) => {
     }
     for (let i = 0; i < goLinks.length; i++) {
         let link = goLinks[i]
-        list.append("<li><a href='" + link.link + "' target='_blank'> go/" + link.key + "</a></li>")
+        list.append("<li><a href='" + link.link + "' target='_blank'> https://go/" + link.key + "</a></li>")
     }
 }
 const fetchGoLinks = (url) => {
