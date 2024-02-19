@@ -26,7 +26,7 @@ const getToken = (callback) => {
     chrome.storage.local.get(['token'], function (result) {
         const tokenPair = result.token
         let isAccessExpired = isTokenExpired(tokenPair.access_token)
-        if (!isAccessExpired || (isAccessExpired && !isTokenExpired(tokenPair.refresh_token))) {
+        if (isAccessExpired && !isTokenExpired(tokenPair.refresh_token)) {
             refreshToken(tokenPair, (data) => {
                 if (callback) callback(data)
             })
