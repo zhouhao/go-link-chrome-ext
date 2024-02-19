@@ -1,3 +1,5 @@
+importScripts('utils.js');
+
 const RESET_LOCAL_CACHE = "RESET_LOCAL_CACHE"
 const isGoLink = (tab) => {
     if (!tab || !tab.url) return false
@@ -29,8 +31,20 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
     if (isGoLink(tab)) {
         const key = parseKey(tab.url)
-        chrome.tabs.update({url: "https://www.google.com?query=" + key});
+        getToken((token) => {
+            get(baseUrl + '/go_link/' + key, token.access_token).then(response => {
+                return response.json()
+            }).then(data => {
+                if (data.link) {
+                    chrome.tabs.update({url: data.link});
+                }
+            }).catch(e => {
+                console.error('Error:' + e.message);
+            })
+        })
     }
 });
+
+
 
 
