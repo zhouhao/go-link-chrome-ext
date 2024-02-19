@@ -49,6 +49,8 @@ $("#create-new-link").on("click", function () {
             }).catch(e => {
                 // it can be error, but no block for server side processing, not sure why
                 console.error('Error:' + e.message);
+            }).finally(() => {
+                fetchGoLinks(url)
             })
         })
     });
