@@ -1,6 +1,6 @@
 {
   "name": "Tiny Go Link",
-  "version": "1.0",
+  "version": "1.0.1",
   "manifest_version": 3,
   "description": "A simple extension to create a tiny go link for the current page.",
   "icons": {
