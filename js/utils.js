@@ -15,6 +15,7 @@ const info = (message) => {
 const storeToken = (token, callback) => {
     if (!token || !token.access_token || !token.refresh_token) {
         error("Invalid token received, please login again")
+        showBeforeLogin()
         return
     }
     chrome.storage.local.set({token: token}, function () {
