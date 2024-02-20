@@ -29,6 +29,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
 });
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
+    // console.log('tab updated', tab.url)
     if (isGoLink(tab)) {
         const key = parseKey(tab.url)
         getToken((token) => {
