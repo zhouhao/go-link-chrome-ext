@@ -26,14 +26,17 @@ const storeToken = (token, callback) => {
 const getToken = (callback) => {
     chrome.storage.local.get(['token'], function (result) {
         const tokenPair = result.token
-        let isAccessExpired = isTokenExpired(tokenPair.access_token)
-        if (isAccessExpired && !isTokenExpired(tokenPair.refresh_token)) {
-            refreshToken(tokenPair, (data) => {
-                if (callback) callback(data)
-            })
-        } else {
-            if (callback) callback(tokenPair)
+        if (tokenPair && tokenPair.access_token) {
+            let isAccessExpired = isTokenExpired(tokenPair.access_token)
+            if (isAccessExpired && !isTokenExpired(tokenPair.refresh_token)) {
+                refreshToken(tokenPair, (data) => {
+                    if (callback) callback(data)
+                })
+                return
+            }
         }
+        if (callback) callback(tokenPair)
+
     });
 }
 const post = (url, data, accessToken = '') => {

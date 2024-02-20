@@ -11,7 +11,6 @@ const showBeforeLogin = () => {
 }
 
 //---------------------------------
-$('#spinner').show()
 $("#send-email-code").on("click", function () {
     let email = $("input#user-email").val().trim();
     if (!isValidEmail(email)) {
