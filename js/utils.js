@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:8888'
+const baseUrl = 'https://go.saltyee.com'
 
 const success = (message) => {
     $.notify(message, "success")
