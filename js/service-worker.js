@@ -37,10 +37,13 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
                 return response.json()
             }).then(data => {
                 if (data.link) {
-                    chrome.tabs.update({url: data.link});
+                    chrome.tabs.update({url: data.link})
+                } else {
+                    chrome.tabs.update({url: 'https://go.saltyee.com/'})
                 }
             }).catch(e => {
                 console.error('Error:' + e.message);
+                chrome.tabs.update({url: 'https://go.saltyee.com/'})
             })
         })
     }
